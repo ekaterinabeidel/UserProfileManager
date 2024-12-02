@@ -1,5 +1,6 @@
 package ekaterinabeidel.userprofilemanager.eintity
 
+import ekaterinabeidel.userprofilemanager.enums.ProfileVisibility
 import jakarta.persistence.*
 import jakarta.validation.constraints.*
 
@@ -30,10 +31,11 @@ import jakarta.validation.constraints.*
     @OneToMany(mappedBy = "userProfile", cascade = [CascadeType.ALL], orphanRemoval = true, fetch = FetchType.EAGER)
     var interests: MutableList<Interest> = mutableListOf(),
 
-    var isPublic: Boolean = false,
-
     @field:Size(max = 200)
-    var avatarUrl: String? = null
+    var avatarUrl: String? = null,
+
+    @Enumerated(EnumType.STRING)
+    var visibility: ProfileVisibility = ProfileVisibility.PRIVATE
 ) {
     constructor() : this(
         id = null,
@@ -43,8 +45,8 @@ import jakarta.validation.constraints.*
         phone = "",
         address = null,
         interests = mutableListOf(),
-        isPublic = false,
-        avatarUrl = null
+        avatarUrl = null,
+        visibility = ProfileVisibility.PRIVATE
     )
 }
 

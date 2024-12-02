@@ -1,6 +1,8 @@
 package ekaterinabeidel.userprofilemanager.dto
 
+import ekaterinabeidel.userprofilemanager.enums.ProfileVisibility
 import jakarta.validation.constraints.NotBlank
+import jakarta.validation.constraints.NotNull
 import jakarta.validation.constraints.Pattern
 import jakarta.validation.constraints.Size
 
@@ -26,8 +28,10 @@ data class UpdateUserProfileDto(
 
     @field:NotBlank
     @field:Size(min = 10, max = 15)
-    @field:Pattern(regexp = "^\\+[1-9][0-9]{9,14}$",
-        message = "Phone number must start with '+' followed by a valid country code and digits.")
+    @field:Pattern(
+        regexp = "^\\+[1-9][0-9]{9,14}$",
+        message = "Phone number must start with '+' followed by a valid country code and digits."
+    )
     val phone: String,
 
     @field:Size(max = 200)
@@ -43,6 +47,16 @@ data class UpdateUserProfileDto(
         regexp = "^[\\p{L}\\p{N},.\\s]+$",
         message = "Interest can only contain letters, numbers, commas, dots, and spaces."
     ) String>,
+
+    @field:Size(max = 200, message = "Link must be at most 200 characters long.")
+    @field:Pattern(
+        regexp = "^(http://|https://)[^\\s]+$",
+        message = "Link must be a valid URL starting with 'http://' or 'https://'."
+    )
+    val link: String?,
+
+    @field:NotNull(message = "Profile visibility must be specified.")
+    val visibility: ProfileVisibility = ProfileVisibility.PRIVATE,
 
     val isPublic: Boolean
 )

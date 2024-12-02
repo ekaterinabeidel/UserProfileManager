@@ -5,7 +5,7 @@ CREATE TABLE IF NOT EXISTS user_profile (
                                             job_title VARCHAR(100),
                                             phone VARCHAR(15) NOT NULL,
                                             address VARCHAR(200),
-                                            is_public BOOLEAN NOT NULL DEFAULT FALSE,
+                                            visibility VARCHAR(10) NOT NULL DEFAULT 'PRIVATE',
                                             avatar_url VARCHAR(200)
 );
 
