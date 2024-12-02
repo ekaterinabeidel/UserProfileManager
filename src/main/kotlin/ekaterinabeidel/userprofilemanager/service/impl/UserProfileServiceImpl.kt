@@ -15,6 +15,7 @@ class UserProfileServiceImpl (
     override fun getUserProfile(userId: Long): UserProfileDto {
         val userProfile = userProfileRepository.findById(userId)
             .orElseThrow { IdNotFoundException("User profile not found for id: $userId") }
+
         return Mapper.convertEntityToUserProfileDto(userProfile)
     }
 
