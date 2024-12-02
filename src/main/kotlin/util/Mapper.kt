@@ -13,7 +13,7 @@ object Mapper {
             jobTitle = userProfile.jobTitle,
             phone = userProfile.phone,
             address = userProfile.address,
-            interests = userProfile.interests.map { it.title },
+            interests = userProfile.interests.map { it.title }.distinct(),
             visibility = userProfile.visibility,
             avatarUrl = userProfile.avatarUrl ?: ""
         )
