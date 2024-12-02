@@ -1,5 +1,6 @@
 package util
 
+import ekaterinabeidel.userprofilemanager.dto.UpdateUserProfileDto
 import ekaterinabeidel.userprofilemanager.dto.UserProfileDto
 import ekaterinabeidel.userprofilemanager.eintity.UserProfile
 
@@ -15,5 +16,15 @@ object Mapper {
             isPublic = userProfile.isPublic,
             avatarUrl = userProfile.avatarUrl ?: ""
         )
+    }
+
+    fun convertUpdateUserProfileDtoToEntity(
+        updateUserProfileDto: UpdateUserProfileDto, userProfile: UserProfile): UserProfile {
+        userProfile.name = updateUserProfileDto.name
+        userProfile.surname = updateUserProfileDto.surname
+        userProfile.jobTitle = updateUserProfileDto.jobTitle
+        userProfile.phone = updateUserProfileDto.phone
+        userProfile.isPublic = updateUserProfileDto.isPublic
+        return userProfile
     }
 }
