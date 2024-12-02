@@ -13,8 +13,8 @@ object Mapper {
             jobTitle = userProfile.jobTitle,
             phone = userProfile.phone,
             address = userProfile.address,
-            interests = userProfile.interests.map { it.title },
-            isPublic = userProfile.isPublic,
+            interests = userProfile.interests.map { it.title }.distinct(),
+            visibility = userProfile.visibility,
             avatarUrl = userProfile.avatarUrl ?: ""
         )
     }
@@ -25,7 +25,7 @@ object Mapper {
         userProfile.surname = updateUserProfileDto.surname
         userProfile.jobTitle = updateUserProfileDto.jobTitle
         userProfile.phone = updateUserProfileDto.phone
-        userProfile.isPublic = updateUserProfileDto.isPublic
+        userProfile.visibility = updateUserProfileDto.visibility
 
         val updatedInterests = updateUserProfileDto.interests.distinct().map { interestTitle ->
             Interest(title = interestTitle, userProfile = userProfile)

@@ -8,9 +8,6 @@ import jakarta.validation.constraints.*
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null,
-
-    @field:NotBlank
-    @field:Size(max = 30)
     var title: String = "",
 
     @ManyToOne
