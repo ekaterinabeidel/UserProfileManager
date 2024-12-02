@@ -6,5 +6,6 @@ data class UpdateUserProfileDto(
     val jobTitle: String?,
     val phone: String,
     val address: String?,
+    val interests: List<String>,
     val isPublic: Boolean
 )
