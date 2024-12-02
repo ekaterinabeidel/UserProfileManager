@@ -21,7 +21,10 @@ class UserProfileServiceImpl (
     override fun updateUserProfile(userId: Long, updateUserProfileDto: UpdateUserProfileDto): UserProfileDto {
         val userProfile = userProfileRepository.findById(userId)
             .orElseThrow { IllegalArgumentException("User profile not found for id: $userId") }
-        Mapper.convertUpdateUserProfileDtoToEntity(updateUserProfileDto, userProfile)
+        val uniqueInterests = updateUserProfileDto.interests.distinct()
+        Mapper.convertUpdateUserProfileDtoToEntity(
+            updateUserProfileDto.copy(interests = uniqueInterests),
+            userProfile)
         userProfileRepository.save(userProfile)
 
         return Mapper.convertEntityToUserProfileDto(userProfile)
