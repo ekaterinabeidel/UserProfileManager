@@ -6,7 +6,9 @@ CREATE TABLE IF NOT EXISTS user_profile (
                                             phone VARCHAR(15) NOT NULL,
                                             address VARCHAR(200),
                                             visibility VARCHAR(10) NOT NULL DEFAULT 'PRIVATE',
-                                            avatar_url VARCHAR(200)
+                                            avatar_url VARCHAR(200),
+                                            profile_link VARCHAR(200)
+
 );
 
 CREATE TABLE IF NOT EXISTS interest (

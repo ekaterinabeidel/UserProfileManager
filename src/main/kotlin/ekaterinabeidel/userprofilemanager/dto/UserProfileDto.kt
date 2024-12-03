@@ -57,7 +57,10 @@ data class UserProfileDto(
         regexp = "^(http://|https://)\\S+$",
         message = "Link must be a valid URL starting with 'http://' or 'https://'."
     )
-    val avatarUrl: String,
+    val profileLink: String? = null,
+
+    @field: Size(max = 200, message = "Avatar URL must not exceed 200 characters")
+    var avatarUrl: String? = null,
 
     @field:NotNull(message = "Profile visibility must be specified.")
     val visibility: ProfileVisibility = ProfileVisibility.PRIVATE,

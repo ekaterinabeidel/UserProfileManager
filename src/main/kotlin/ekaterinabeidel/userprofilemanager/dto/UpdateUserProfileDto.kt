@@ -23,7 +23,7 @@ data class UpdateUserProfileDto(
     )
     val surname: String,
 
-    @field:Size(max = 100,  message = "Job Title must be at most 100 characters long.")
+    @field:Size(max = 100, message = "Job Title must be at most 100 characters long.")
     @field:Pattern(
         regexp = "^[\\p{L}\\p{N} ]*\$",
         message = "Job Title can only contain letters, numbers, and spaces."
@@ -57,7 +57,7 @@ data class UpdateUserProfileDto(
         regexp = "^(http://|https://)\\S+$",
         message = "Link must be a valid URL starting with 'http://' or 'https://'."
     )
-    val avatarUrl: String?,
+    val profileLink: String? = null,
 
     @field:NotNull(message = "Profile visibility must be specified.")
     val visibility: ProfileVisibility = ProfileVisibility.PRIVATE
