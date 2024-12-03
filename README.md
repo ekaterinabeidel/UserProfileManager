@@ -59,7 +59,27 @@ src/
         └── schema.sql              # Database Schema Definition
 
 ```
+---
 
+## 🛠️ Dependencies and Tools
+
+The following dependencies and tools are used in this project:
+
+### Frameworks and Libraries
+- **Spring Boot**: 3.3.5
+    - `spring-boot-starter`
+    - `spring-boot-starter-web`
+    - `spring-boot-starter-data-jpa`
+    - `spring-boot-starter-validation`
+- **PostgreSQL Driver**: 42.7.3
+- **SpringDoc OpenAPI**: 2.6.0
+- **Kotlin**: 1.9.25
+    - `kotlin-reflect`
+    - `kotlin-stdlib`
+
+### Build Tools
+- **Maven**
+    - Java Version: 21
 ---
 
 ## 🏃 Getting Started
