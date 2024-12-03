@@ -9,5 +9,5 @@ import org.springframework.web.multipart.MultipartFile
 interface UserProfileService {
     fun getUserProfile(userId: Long): UserProfileDto
     fun updateUserProfile(userId: Long, updateUserProfileDto: UpdateUserProfileDto): UserProfileDto
-    fun uploadAvatar(userId: Long, file: MultipartFile)
+    fun uploadAvatar(userId: Long, file: MultipartFile): String
 }
