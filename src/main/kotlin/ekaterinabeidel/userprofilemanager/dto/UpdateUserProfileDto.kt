@@ -18,7 +18,7 @@ data class UpdateUserProfileDto(
     @field:NotBlank(message = "Surname is required.")
     @field:Size(min = 2, max = 50, message = "Surname must be between 2 and 50 characters.")
     @field:Pattern(
-        regexp = "^\\p{L}(?:[\\p{L}\\s\\-]*\\p{L})?\$\n",
+        regexp = "^\\p{L}[\\p{L}\\s\\-']*\\p{L}\$",
         message = "Surname can only contain letters, spaces, and hyphens."
     )
     val surname: String,
@@ -31,7 +31,7 @@ data class UpdateUserProfileDto(
     val jobTitle: String?,
 
     @field:NotBlank(message = "Phone number is required.")
-    @field:Size(min = 10, max = 15)
+    @field:Size(min = 10, max = 15, message = "Phone must be between 10 and 15 characters.")
     @field:Pattern(
         regexp = "^\\+[1-9][0-9]{9,14}$",
         message = "Phone number must start with '+' followed by a valid country code and digits."

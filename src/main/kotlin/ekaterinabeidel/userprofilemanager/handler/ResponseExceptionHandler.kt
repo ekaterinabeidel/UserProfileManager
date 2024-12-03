@@ -3,6 +3,7 @@ package ekaterinabeidel.userprofilemanager.handler
 import ekaterinabeidel.userprofilemanager.exception.*
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.MethodArgumentNotValidException
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestControllerAdvice
@@ -66,6 +67,21 @@ class ResponseExceptionHandler {
             statusCode = HttpStatus.BAD_REQUEST,
             message = ex.message ?: "File storage error occurred."
         )
+        return ResponseEntity(error, HttpStatus.BAD_REQUEST)
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException::class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    fun handleValidationException(ex: MethodArgumentNotValidException): ResponseEntity<AppError> {
+        val validationMessages = ex.bindingResult.fieldErrors.joinToString(", ") {
+            "${it.field}: ${it.defaultMessage ?: "Invalid value"}"
+        }
+
+        val error = AppError(
+            statusCode = HttpStatus.BAD_REQUEST,
+            message = "Validation failed: $validationMessages"
+        )
+
         return ResponseEntity(error, HttpStatus.BAD_REQUEST)
     }
 }
