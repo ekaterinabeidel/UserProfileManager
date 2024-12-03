@@ -1,3 +1,5 @@
+DROP TABLE IF EXISTS interest;
+DROP TABLE IF EXISTS user_profile;
 CREATE TABLE IF NOT EXISTS user_profile (
                                             id SERIAL PRIMARY KEY,
                                             name VARCHAR(50) NOT NULL,
