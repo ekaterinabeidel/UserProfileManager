@@ -1,4 +1,4 @@
-package util
+package ekaterinabeidel.userprofilemanager.util
 
 import ekaterinabeidel.userprofilemanager.dto.UpdateUserProfileDto
 import ekaterinabeidel.userprofilemanager.dto.UserProfileDto
@@ -15,6 +15,7 @@ object Mapper {
             address = userProfile.address,
             interests = userProfile.interests.map { it.title }.distinct(),
             visibility = userProfile.visibility,
+            profileLink = userProfile.profileLink,
             avatarUrl = userProfile.avatarUrl ?: ""
         )
     }
@@ -33,6 +34,7 @@ object Mapper {
 
         userProfile.interests.clear()
         userProfile.interests.addAll(updatedInterests)
+        userProfile.profileLink = updateUserProfileDto.profileLink
         return userProfile
     }
 }

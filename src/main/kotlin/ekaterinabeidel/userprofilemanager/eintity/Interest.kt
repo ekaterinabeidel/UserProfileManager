@@ -1,7 +1,6 @@
 package ekaterinabeidel.userprofilemanager.eintity
 
 import jakarta.persistence.*
-import jakarta.validation.constraints.*
 
 @Entity
  class Interest(
