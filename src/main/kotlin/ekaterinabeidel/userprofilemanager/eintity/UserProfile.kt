@@ -2,7 +2,6 @@ package ekaterinabeidel.userprofilemanager.eintity
 
 import ekaterinabeidel.userprofilemanager.enums.ProfileVisibility
 import jakarta.persistence.*
-import jakarta.validation.constraints.*
 
 @Entity
  class UserProfile(
