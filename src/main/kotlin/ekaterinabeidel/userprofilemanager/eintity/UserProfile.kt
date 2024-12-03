@@ -10,7 +10,7 @@ import jakarta.persistence.*
     var id: Long? = null,
 
     @Version
-    var version: Int = 0,
+    var version: Long? = null,
     var name: String = "",
     var surname: String = "",
     var jobTitle: String? = null,
@@ -28,7 +28,7 @@ import jakarta.persistence.*
 ) {
     constructor() : this(
         id = null,
-        version = 0,
+        version = null,
         name = "",
         surname = "",
         jobTitle = null,
