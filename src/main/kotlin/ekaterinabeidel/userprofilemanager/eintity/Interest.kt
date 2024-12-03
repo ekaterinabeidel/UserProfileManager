@@ -9,9 +9,13 @@ import jakarta.persistence.*
     var id: Long? = null,
     var title: String = "",
 
+    @ManyToOne
+    @JoinColumn(name = "user_profile_id", nullable = false)
+    var userProfile: UserProfile? = null
 ) {
     constructor() : this(
         id = null,
         title = "",
+        userProfile = null
     )
 }
