@@ -110,12 +110,15 @@ GET /api/profile?userId=1
 {
   "name": "Albert",
   "surname": "Einstein",
-  "jobTitle": "Physicist",
-  "phone": "+1234567890",
+  "jobTitle": "Theoretical Physicist",
+  "phone": "+79991234567",
   "address": "Princeton",
-  "interests": ["Physics", "Mathematics"],
-  "profileLink": "https://example.com",
-  "avatarUrl": "http://localhost:8080/uploads/avatar.jpg",
+  "interests": [
+    "Relativity",
+    "Quantum Mechanics"
+  ],
+  "profileLink": "https://example.com/profiles/einstein",
+  "avatarUrl": "https://example.com/avatar1.jpg",
   "visibility": "PUBLIC"
 }
 ```
@@ -131,11 +134,14 @@ Content-Type: application/json
 {
   "name": "Albert",
   "surname": "Einstein",
-  "jobTitle": "Physicist",
-  "phone": "+1234567890",
+  "jobTitle": "Theoretical Physicist",
+  "phone": "+79991234567",
   "address": "Princeton",
-  "interests": ["Physics", "Mathematics"],
-  "profileLink": "https://example.com",
+  "interests": [
+    "Relativity",
+    "Quantum Mechanics"
+  ],
+  "profileLink": "https://example.com/profiles/einstein",
   "visibility": "PUBLIC"
 }
 ```
@@ -144,21 +150,39 @@ Content-Type: application/json
 {
   "name": "Albert",
   "surname": "Einstein",
-  "jobTitle": "Physicist",
-  "phone": "+1234567890",
+  "jobTitle": "Theoretical Physicist",
+  "phone": "+79991234567",
   "address": "Princeton",
-  "interests": ["Physics", "Mathematics"],
-  "profileLink": "https://example.com",
-  "avatarUrl": "http://localhost:8080/uploads/avatar.jpg",
+  "interests": [
+    "Relativity",
+    "Quantum Mechanics"
+  ],
+  "profileLink": "https://example.com/profiles/einstein",
+  "avatarUrl": "https://example.com/avatar1.jpg",
   "visibility": "PUBLIC"
 }
 ```
-
+### 3. Upload Avatar
+**Request**:
+```http
+POST /api/upload-avatar?userId=1
+Content-Type: multipart/form-data
+```
+**Request Body**:
+```
+file: avatar.jpg
+```
+**Response**:
+```json
+{
+  "URL": "http://localhost:8080/uploads/avatar.jpg"
+}
+```
 ---
 
 ## 🛑 Constraints & Validation
 
-- Name and Surname: Minimum 2 characters, only letters.
+- Name and Surname: Minimum 2 characters, maximum 50 characters, only letters.
 - Phone Number: International format starting with `+`.
 - Links: Must start with `http://` or `https://`.
 - Avatar: Only `.jpg`, `.jpeg`, `.png` formats, up to 5 MB.
@@ -187,4 +211,3 @@ To enable or modify Swagger, check the configuration files under `src/main/kotli
 If you have any questions, feel free to contact me at [ek.beidel@gmail.com](mailto:ek.beidel@gmail.com).
 
 ---
-This `README.md` provides clear and concise information about the project. Feel free to extend it as your project evolves!
