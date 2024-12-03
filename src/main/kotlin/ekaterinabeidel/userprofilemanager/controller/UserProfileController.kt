@@ -4,6 +4,8 @@ import ekaterinabeidel.userprofilemanager.annotation.*
 import ekaterinabeidel.userprofilemanager.dto.UpdateUserProfileDto
 import ekaterinabeidel.userprofilemanager.dto.UserProfileDto
 import ekaterinabeidel.userprofilemanager.service.UserProfileService
+import io.swagger.v3.oas.annotations.media.Content
+import io.swagger.v3.oas.annotations.media.ExampleObject
 import jakarta.validation.Valid
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
@@ -36,7 +38,7 @@ class UserProfileController(
     @PutMapping("/profile")
     fun updateUserProfile(
         @RequestParam userId: Long,
-        @UpdateUserProfileRequestBody @Valid @RequestBody updateUserProfileDto: UpdateUserProfileDto
+        @Valid @RequestBody updateUserProfileDto: UpdateUserProfileDto
     ): ResponseEntity<UserProfileDto> {
         val updatedProfile = userProfileService.updateUserProfile(userId, updateUserProfileDto)
         return ResponseEntity.ok(updatedProfile)
