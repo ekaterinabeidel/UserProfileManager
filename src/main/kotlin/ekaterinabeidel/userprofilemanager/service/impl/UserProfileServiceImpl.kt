@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 import org.springframework.web.multipart.MultipartFile
 import ekaterinabeidel.userprofilemanager.util.Mapper
-import java.io.IOException
 import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.Paths
@@ -30,7 +29,7 @@ class UserProfileServiceImpl(
 
     override fun updateUserProfile(userId: Long, updateUserProfileDto: UpdateUserProfileDto): UserProfileDto {
         val userProfile = userProfileRepository.findById(userId)
-            .orElseThrow { IllegalArgumentException("User profile not found for id: $userId") }
+            .orElseThrow { IdNotFoundException("User profile not found for id: $userId") }
 
         val uniqueInterests = updateUserProfileDto.interests.distinct()
         Mapper.convertUpdateUserProfileDtoToEntity(
@@ -60,29 +59,32 @@ class UserProfileServiceImpl(
         val userProfile = userProfileRepository.findById(userId)
             .orElseThrow { IdNotFoundException("User profile not found for id: $userId") }
 
-        val uploadPath: Path = Paths.get(uploadDir)
-        runCatching {
-            if (!Files.exists(uploadPath)) {
-                Files.createDirectories(uploadPath)
+        synchronized(this) {
+            val uploadPath: Path = Paths.get(uploadDir)
+            runCatching {
+                if (!Files.exists(uploadPath)) {
+                    Files.createDirectories(uploadPath)
+                }
+            }.getOrElse { e ->
+                throw FileStorageException("Failed to create upload directory: $uploadDir", e)
             }
-        }.getOrElse { e ->
-            throw FileStorageException("Failed to create upload directory: $uploadDir", e)
-        }
 
-        val fileName = "${UUID.randomUUID()}.$fileExtension"
-        val targetPath = uploadPath.resolve(fileName)
-        runCatching {
-            file.inputStream.use { input ->
-                Files.copy(input, targetPath, StandardCopyOption.REPLACE_EXISTING)
+
+            val fileName = "${UUID.randomUUID()}.$fileExtension"
+            val targetPath = uploadPath.resolve(fileName)
+            runCatching {
+                file.inputStream.use { input ->
+                    Files.copy(input, targetPath, StandardCopyOption.REPLACE_EXISTING)
+                }
+            }.getOrElse { e ->
+                throw FileStorageException("Failed to save file: $fileName", e)
             }
-        }.getOrElse { e ->
-            throw FileStorageException("Failed to save file: $fileName", e)
+
+            val avatarUrl = "/uploads/avatars/$fileName"
+            userProfile.avatarUrl = avatarUrl
+            userProfileRepository.save(userProfile)
+
+            return avatarUrl
         }
-
-        val avatarUrl = "/uploads/avatars/$fileName"
-        userProfile.avatarUrl = avatarUrl
-        userProfileRepository.save(userProfile)
-
-        return avatarUrl
     }
 }

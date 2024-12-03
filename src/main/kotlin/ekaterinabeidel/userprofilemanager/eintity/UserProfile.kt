@@ -8,6 +8,9 @@ import jakarta.persistence.*
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null,
+
+    @Version
+    var version: Long? = null,
     var name: String = "",
     var surname: String = "",
     var jobTitle: String? = null,
@@ -25,6 +28,7 @@ import jakarta.persistence.*
 ) {
     constructor() : this(
         id = null,
+        version = null,
         name = "",
         surname = "",
         jobTitle = null,

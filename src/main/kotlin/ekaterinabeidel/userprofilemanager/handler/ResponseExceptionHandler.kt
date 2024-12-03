@@ -1,6 +1,7 @@
 package ekaterinabeidel.userprofilemanager.handler
 
 import ekaterinabeidel.userprofilemanager.exception.*
+import jakarta.persistence.OptimisticLockException
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.MethodArgumentNotValidException
@@ -83,5 +84,15 @@ class ResponseExceptionHandler {
         )
 
         return ResponseEntity(error, HttpStatus.BAD_REQUEST)
+    }
+
+    @ExceptionHandler(OptimisticLockException::class)
+    @ResponseStatus(HttpStatus.CONFLICT)
+    fun handleOptimisticLockException(ex: OptimisticLockException): ResponseEntity<AppError> {
+        val error = AppError(
+            statusCode = HttpStatus.CONFLICT,
+            message = "The record was updated by another transaction. Please reload and try again."
+        )
+        return ResponseEntity(error, HttpStatus.CONFLICT)
     }
 }
